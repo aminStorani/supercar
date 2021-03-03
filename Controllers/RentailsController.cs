@@ -10,17 +10,26 @@ namespace supercar.Controllers
 {
     public class RentailsController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Getcar()
+        private readonly ApplicationDbContext _context;
+
+
+
+        public RentailsController(ApplicationDbContext context)
         {
-            var car = db.Carreg.ToList();
-            return View(car);
+            _context = context;
+        }
+
+        [HttpGet]
+        public List<Carreg> Getcar()
+        {
+            var cars = _context.Carreg.ToList();
+            return cars;
         }
     }
 }
